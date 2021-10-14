@@ -16,6 +16,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import top.gangshanghua.xiaobo.simpleretrofit.LoadingBaseActivity
 import top.gangshanghua.xiaobo.simpleretrofit.R
+import java.util.*
 
 class SimpleRetrofitActivity : LoadingBaseActivity() {
 
@@ -27,16 +28,34 @@ class SimpleRetrofitActivity : LoadingBaseActivity() {
         // for only the last result will be send.
         val mTestData = MutableLiveData<List<Item>?>()
 
-        fun good(showLoading: Boolean = false) {
-            SimpleApi.mSimpleApiService.good(showLoading).enqueue(SimpleCallback(mTestData))
+        fun good() {
+            SimpleApi.mApiService.good().enqueue(SimpleCallback(mTestData))
         }
 
-        fun notFound(showLoading: Boolean = false) {
-            SimpleApi.mSimpleApiService.notFound(showLoading).enqueue(SimpleCallback(mTestData))
+        fun goodLoading() {
+            // both ways are OK
+            val rand = Random().nextBoolean()
+            if (rand) {
+                SimpleApi.mApiService.good(true).enqueue(SimpleCallback(mTestData))
+            } else {
+                SimpleApi.mLoadingApiService.good().enqueue(SimpleCallback(mTestData))
+            }
         }
 
-        fun timeout(showLoading: Boolean = false) {
-            SimpleApi.mSimpleApiService.timeout(showLoading).enqueue(SimpleCallback(mTestData))
+        fun notFound() {
+            SimpleApi.mApiService.notFound().enqueue(SimpleCallback(mTestData))
+        }
+
+        fun notFoundLoading() {
+            SimpleApi.mLoadingApiService.notFound().enqueue(SimpleCallback(mTestData))
+        }
+
+        fun timeout() {
+            SimpleApi.mApiService.timeout().enqueue(SimpleCallback(mTestData))
+        }
+
+        fun timeoutLoading() {
+            SimpleApi.mLoadingApiService.timeout().enqueue(SimpleCallback(mTestData))
         }
     }
 
@@ -85,20 +104,37 @@ class SimpleRetrofitActivity : LoadingBaseActivity() {
         })
 
         findViewById<Button>(R.id.good).setOnClickListener {
-            mViewModel.good(mShowLoading)
+            if (!mShowLoading) {
+                mViewModel.good()
+            } else {
+                mViewModel.goodLoading()
+            }
         }
 
         findViewById<Button>(R.id.not_found).setOnClickListener {
-            mViewModel.notFound(mShowLoading)
+            if (!mShowLoading) {
+                mViewModel.notFound()
+            } else {
+                mViewModel.notFoundLoading()
+            }
         }
 
         findViewById<Button>(R.id.timeout).setOnClickListener {
-            mViewModel.timeout(mShowLoading)
+            if (!mShowLoading) {
+                mViewModel.timeout()
+            } else {
+                mViewModel.timeoutLoading()
+            }
         }
 
         findViewById<Button>(R.id.multiple).setOnClickListener {
-            mViewModel.notFound(mShowLoading)
-            mViewModel.timeout(mShowLoading)
+            if (!mShowLoading) {
+                mViewModel.notFound()
+                mViewModel.timeout()
+            } else {
+                mViewModel.notFoundLoading()
+                mViewModel.timeoutLoading()
+            }
         }
 
         findViewById<CheckBox>(R.id.show_loading).setOnCheckedChangeListener { _, isChecked ->

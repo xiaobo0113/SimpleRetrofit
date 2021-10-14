@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import androidx.activity.addCallback
 import androidx.core.view.isVisible
+import com.blankj.utilcode.util.LogUtils
 import top.gangshanghua.xiaobo.simpleretrofit.simple.SimpleApi
 
 abstract class LoadingBaseActivity : BaseActivity() {
@@ -32,6 +33,8 @@ abstract class LoadingBaseActivity : BaseActivity() {
         }
 
         SimpleApi.mLoadingLiveData.observe(this) {
+            LogUtils.d("mCount before: $mCount")
+
             if (it.first) {
                 if (mCount++ == 0) {
                     mProgressBar.isVisible = true
@@ -41,6 +44,8 @@ abstract class LoadingBaseActivity : BaseActivity() {
                     mProgressBar.isVisible = false
                 }
             }
+
+            LogUtils.d("mCount after: $mCount")
         }
     }
 
