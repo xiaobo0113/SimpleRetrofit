@@ -31,6 +31,8 @@ abstract class LoadingBaseActivity : BaseActivity() {
         LogUtils.d("mCount after: $mCount")
     }
 
+    open fun forbidBackPressWhenLoading() = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -40,7 +42,7 @@ abstract class LoadingBaseActivity : BaseActivity() {
         }, -1)
         mProgressBar.isVisible = false
 
-        onBackPressedDispatcher.addCallback(this) {
+        onBackPressedDispatcher.addCallback(this, forbidBackPressWhenLoading()) {
             if (!mProgressBar.isVisible) {
                 isEnabled = false
                 onBackPressedDispatcher.onBackPressed()

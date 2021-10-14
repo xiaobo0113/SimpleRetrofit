@@ -79,6 +79,8 @@ class SimpleRetrofitActivity : LoadingBaseActivity() {
         initViewModel()
     }
 
+    override fun forbidBackPressWhenLoading() = true
+
     private fun initViewModel() {
         mViewModel.mTestData.observe(this) {
             it?.let {
