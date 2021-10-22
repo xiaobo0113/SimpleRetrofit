@@ -8,9 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.TextView
-import androidx.activity.viewModels
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.chad.library.adapter.base.BaseQuickAdapter
@@ -25,7 +23,7 @@ class SimpleRetrofitActivity : LoadingBaseActivity() {
     // =============================================================================>
     data class Item(val name: String?)
 
-    class MyViewModel(mStartedTime: String) : BaseViewModel(mStartedTime) {
+    class MyViewModel(startedTime: String) : BaseViewModel(startedTime) {
         // do not use one same LiveData for multiple requests.
         // for only the last result will be send.
         val mTestData = MutableLiveData<List<Item>?>()
