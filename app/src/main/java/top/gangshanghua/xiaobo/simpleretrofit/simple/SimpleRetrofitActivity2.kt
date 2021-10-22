@@ -8,7 +8,7 @@ class SimpleRetrofitActivity2 : LoadingBaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        SimpleApi.mApiService.good(mStartedTime).enqueue(SimpleCallback(MutableLiveData()))
+        SimpleApi.mApiService.good(mStartedTime).enqueue(IgnoreResponseSimpleCallback())
     }
 
     override fun forbidBackPressWhenLoading() = false
