@@ -17,15 +17,15 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import top.gangshanghua.xiaobo.simpleretrofit.base.LoadingBaseActivity
 import top.gangshanghua.xiaobo.simpleretrofit.R
+import top.gangshanghua.xiaobo.simpleretrofit.base.BaseViewModel
+import top.gangshanghua.xiaobo.simpleretrofit.base.viewModel
 
 class SimpleRetrofitActivity : LoadingBaseActivity() {
 
     // =============================================================================>
     data class Item(val name: String?)
 
-    class MyViewModel : ViewModel() {
-        lateinit var mStartedTime: String
-
+    class MyViewModel(mStartedTime: String) : BaseViewModel(mStartedTime) {
         // do not use one same LiveData for multiple requests.
         // for only the last result will be send.
         val mTestData = MutableLiveData<List<Item>?>()
@@ -63,7 +63,9 @@ class SimpleRetrofitActivity : LoadingBaseActivity() {
     }
     // <=============================================================================
 
-    private val mViewModel: MyViewModel by viewModels()
+    private val mViewModel: MyViewModel by viewModel {
+        MyViewModel(mStartedTime)
+    }
     private lateinit var mAdapter: MyAdapter
     private var mShowLoading = false
 
@@ -78,9 +80,6 @@ class SimpleRetrofitActivity : LoadingBaseActivity() {
     override fun forbidBackPressWhenLoading() = true
 
     private fun initViewModel() {
-        // TODO use BaseViewModel
-        mViewModel.mStartedTime = mStartedTime
-
         mViewModel.mTestData.observe(this) {
             it?.let {
                 mAdapter.setList(it)
