@@ -6,14 +6,34 @@
     android:layout_height="match_parent"
     android:padding="8dp">
 
-    <CheckBox
-        android:id="@+id/show_loading"
+    <LinearLayout
+        android:id="@+id/top_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="show loading"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <CheckBox
+            android:id="@+id/show_loading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="show loading"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/jump"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:text="jump"
+            android:textAllCaps="false" />
+
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
@@ -22,7 +42,7 @@
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/show_loading"
+        app:layout_constraintTop_toBottomOf="@+id/top_container"
         tools:listitem="@android:layout/simple_list_item_1" />
 
     <LinearLayout

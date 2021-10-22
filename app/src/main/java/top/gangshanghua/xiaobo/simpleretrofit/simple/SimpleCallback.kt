@@ -6,6 +6,9 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+// TODO add IgnoreResponseSimpleCallback
+class IgnoreResponseSimpleCallback
+
 class SimpleCallback<T>(private val mLiveData: MutableLiveData<T?>) : Callback<Result<T?>> {
 
     override fun onResponse(call: Call<Result<T?>>, response: Response<Result<T?>>) {

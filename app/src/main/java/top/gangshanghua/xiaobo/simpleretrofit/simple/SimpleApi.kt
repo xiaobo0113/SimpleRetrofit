@@ -19,11 +19,8 @@ object SimpleApi {
     const val HEADER_LOADING = "loading"
 
     lateinit var mApiService: SimpleApiService
-    lateinit var mLoadingApiService: SimpleLoadingApiService
-
     private val mHandler = Handler(Looper.getMainLooper())
-
-    val mLoadingLiveData = MutableLiveData<Pair<Boolean, Call>>()
+    val mLoadingLiveData = MutableLiveData<Triple<Boolean, String, Call>>()
 
     fun init() {
         val client = OkHttpClient.Builder()
@@ -37,27 +34,27 @@ object SimpleApi {
                 override fun callStart(call: Call) {
                     super.callStart(call)
                     // can not use postValue, for maybe only the last value will be sent
-                    if ("true" == call.request().header(HEADER_LOADING)) {
+                    call.request().header(HEADER_LOADING)?.let {
                         mHandler.post {
-                            mLoadingLiveData.value = Pair(true, call)
+                            mLoadingLiveData.value = Triple(true, it, call)
                         }
                     }
                 }
 
                 override fun callEnd(call: Call) {
                     super.callEnd(call)
-                    if ("true" == call.request().header(HEADER_LOADING)) {
+                    call.request().header(HEADER_LOADING)?.let {
                         mHandler.post {
-                            mLoadingLiveData.value = Pair(false, call)
+                            mLoadingLiveData.value = Triple(false, it, call)
                         }
                     }
                 }
 
                 override fun callFailed(call: Call, ioe: IOException) {
                     super.callFailed(call, ioe)
-                    if ("true" == call.request().header(HEADER_LOADING)) {
+                    call.request().header(HEADER_LOADING)?.let {
                         mHandler.post {
-                            mLoadingLiveData.value = Pair(false, call)
+                            mLoadingLiveData.value = Triple(false, it, call)
                         }
                     }
 
@@ -69,16 +66,12 @@ object SimpleApi {
             .build()
 
         val retrofit = Retrofit.Builder()
-            .client(LoadingOkHttpClient(client, false))
+            .client(client)
             .baseUrl("https://www.baidu.com/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
         mApiService = retrofit.create(SimpleApiService::class.java)
-        mLoadingApiService = retrofit.newBuilder()
-            .client(LoadingOkHttpClient(client, true))
-            .build()
-            .create(SimpleLoadingApiService::class.java)
     }
 
 }

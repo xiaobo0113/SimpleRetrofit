@@ -1,5 +1,6 @@
 package top.gangshanghua.xiaobo.simpleretrofit.simple
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.Gravity
@@ -24,6 +25,8 @@ class SimpleRetrofitActivity : LoadingBaseActivity() {
     data class Item(val name: String?)
 
     class MyViewModel : ViewModel() {
+        lateinit var mStartedTime: String
+
         // do not use one same LiveData for multiple requests.
         // for only the last result will be send.
         val mTestData = MutableLiveData<List<Item>?>()
@@ -33,13 +36,7 @@ class SimpleRetrofitActivity : LoadingBaseActivity() {
         }
 
         fun goodLoading() {
-            // both ways are OK
-            val rand = Random().nextBoolean()
-            if (rand) {
-                SimpleApi.mApiService.good(true).enqueue(SimpleCallback(mTestData))
-            } else {
-                SimpleApi.mLoadingApiService.good().enqueue(SimpleCallback(mTestData))
-            }
+            SimpleApi.mApiService.good(mStartedTime).enqueue(SimpleCallback(mTestData))
         }
 
         fun notFound() {
@@ -47,7 +44,7 @@ class SimpleRetrofitActivity : LoadingBaseActivity() {
         }
 
         fun notFoundLoading() {
-            SimpleApi.mLoadingApiService.notFound().enqueue(SimpleCallback(mTestData))
+            SimpleApi.mApiService.notFound(mStartedTime).enqueue(SimpleCallback(mTestData))
         }
 
         fun timeout() {
@@ -55,7 +52,7 @@ class SimpleRetrofitActivity : LoadingBaseActivity() {
         }
 
         fun timeoutLoading() {
-            SimpleApi.mLoadingApiService.timeout().enqueue(SimpleCallback(mTestData))
+            SimpleApi.mApiService.timeout(mStartedTime).enqueue(SimpleCallback(mTestData))
         }
     }
 
@@ -82,6 +79,9 @@ class SimpleRetrofitActivity : LoadingBaseActivity() {
     override fun forbidBackPressWhenLoading() = true
 
     private fun initViewModel() {
+        // TODO use BaseViewModel
+        mViewModel.mStartedTime = mStartedTime
+
         mViewModel.mTestData.observe(this) {
             it?.let {
                 mAdapter.setList(it)
@@ -141,6 +141,10 @@ class SimpleRetrofitActivity : LoadingBaseActivity() {
 
         findViewById<CheckBox>(R.id.show_loading).setOnCheckedChangeListener { _, isChecked ->
             mShowLoading = isChecked
+        }
+
+        findViewById<Button>(R.id.jump).setOnClickListener {
+            startActivity(Intent(it.context, SimpleRetrofitActivity2::class.java))
         }
     }
 

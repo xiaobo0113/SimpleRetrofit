@@ -13,11 +13,20 @@ import top.gangshanghua.xiaobo.simpleretrofit.simple.SimpleApi
 
 abstract class LoadingBaseActivity : BaseActivity() {
 
+    companion object {
+        const val EXTRA_STARTED_TIME = "EXTRA_STARTED_TIME"
+    }
+
+    protected var mStartedTime = ""
+
     private lateinit var mProgressBar: ProgressBar
     private var mCount = 0
-    private val mLoadingObserver = Observer<Pair<Boolean, Call>> {
-        LogUtils.d("mCount before: $mCount")
+    private val mLoadingObserver = Observer<Triple<Boolean, String, Call>> {
+        if (mStartedTime != it.second) {
+            return@Observer
+        }
 
+        LogUtils.d("mCount before: $mCount")
         if (it.first) {
             if (mCount++ == 0) {
                 mProgressBar.isVisible = true
@@ -27,7 +36,6 @@ abstract class LoadingBaseActivity : BaseActivity() {
                 mProgressBar.isVisible = false
             }
         }
-
         LogUtils.d("mCount after: $mCount")
     }
 
@@ -35,6 +43,9 @@ abstract class LoadingBaseActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // TODO maybe use uuid
+        mStartedTime = "${System.currentTimeMillis()}"
+        intent.putExtra(EXTRA_STARTED_TIME, mStartedTime)
 
         (window.decorView as ViewGroup).addView(ProgressBar(this).apply {
             mProgressBar = this

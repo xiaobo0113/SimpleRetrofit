@@ -24,7 +24,7 @@ class SimpleInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         when (chain.request().url().pathSegments().last()) {
             "good" -> {
-                Thread.sleep(1000L)
+                Thread.sleep(3000L)
 
                 val body = ResponseBody.create(MediaType.parse("application/json"), GOOD_JSON)
                 return Response.Builder()
@@ -42,7 +42,7 @@ class SimpleInterceptor : Interceptor {
             }
 
             else -> {
-                Thread.sleep(2000L)
+                Thread.sleep(3000L)
                 return chain.proceed(chain.request())
             }
         }
