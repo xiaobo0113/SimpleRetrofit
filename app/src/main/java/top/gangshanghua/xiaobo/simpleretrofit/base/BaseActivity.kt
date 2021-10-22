@@ -1,4 +1,4 @@
-package top.gangshanghua.xiaobo.simpleretrofit
+package top.gangshanghua.xiaobo.simpleretrofit.base
 
 import androidx.appcompat.app.AppCompatActivity
 

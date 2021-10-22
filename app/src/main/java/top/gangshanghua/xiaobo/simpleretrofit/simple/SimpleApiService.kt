@@ -3,6 +3,7 @@ package top.gangshanghua.xiaobo.simpleretrofit.simple
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Header
+import top.gangshanghua.xiaobo.simpleretrofit.http.Result
 
 interface SimpleApiService {
 

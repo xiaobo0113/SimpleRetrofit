@@ -1,8 +1,7 @@
 package top.gangshanghua.xiaobo.simpleretrofit.simple
 
 import android.os.Bundle
-import androidx.lifecycle.MutableLiveData
-import top.gangshanghua.xiaobo.simpleretrofit.LoadingBaseActivity
+import top.gangshanghua.xiaobo.simpleretrofit.base.LoadingBaseActivity
 
 class SimpleRetrofitActivity2 : LoadingBaseActivity() {
 

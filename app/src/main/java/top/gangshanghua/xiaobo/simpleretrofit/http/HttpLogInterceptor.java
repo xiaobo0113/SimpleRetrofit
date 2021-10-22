@@ -1,4 +1,4 @@
-package top.gangshanghua.xiaobo.simpleretrofit;
+package top.gangshanghua.xiaobo.simpleretrofit.http;
 
 import android.text.TextUtils;
 

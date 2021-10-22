@@ -15,9 +15,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
-import top.gangshanghua.xiaobo.simpleretrofit.LoadingBaseActivity
+import top.gangshanghua.xiaobo.simpleretrofit.base.LoadingBaseActivity
 import top.gangshanghua.xiaobo.simpleretrofit.R
-import java.util.*
 
 class SimpleRetrofitActivity : LoadingBaseActivity() {
 

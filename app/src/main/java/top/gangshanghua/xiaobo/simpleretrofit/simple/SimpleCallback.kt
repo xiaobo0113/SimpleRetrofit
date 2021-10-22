@@ -5,6 +5,7 @@ import com.blankj.utilcode.util.ToastUtils
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import top.gangshanghua.xiaobo.simpleretrofit.http.Result
 
 class IgnoreResponseSimpleCallback<T> : SimpleCallback<T>(MutableLiveData<T?>())
 

@@ -10,7 +10,7 @@ import okhttp3.EventListener
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import top.gangshanghua.xiaobo.simpleretrofit.HttpLogInterceptor
+import top.gangshanghua.xiaobo.simpleretrofit.http.HttpLogInterceptor
 import java.io.IOException
 import java.util.concurrent.TimeUnit
 
@@ -28,7 +28,11 @@ object SimpleApi {
             .writeTimeout(3, TimeUnit.SECONDS)
             .connectTimeout(3, TimeUnit.SECONDS)
             .connectionPool(ConnectionPool())
-            .addInterceptor(HttpLogInterceptor(true))
+            .addInterceptor(
+                HttpLogInterceptor(
+                    true
+                )
+            )
             .addInterceptor(SimpleInterceptor())
             .eventListener(object : EventListener() {
                 override fun callStart(call: Call) {
