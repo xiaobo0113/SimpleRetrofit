@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import top.gangshanghua.xiaobo.simpleretrofit.R
-import top.gangshanghua.xiaobo.simpleretrofit.base.BaseViewModel
 import top.gangshanghua.xiaobo.simpleretrofit.base.LoadingBaseActivity
 import top.gangshanghua.xiaobo.simpleretrofit.base.LoadingBaseViewModel
 import top.gangshanghua.xiaobo.simpleretrofit.base.viewModel
@@ -75,8 +74,6 @@ class SimpleRetrofitActivity : LoadingBaseActivity() {
         initUi()
         initViewModel()
     }
-
-    override fun forbidBackPressWhenLoading() = true
 
     private fun initViewModel() {
         mViewModel.mTestData.observe(this) {
