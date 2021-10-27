@@ -17,7 +17,7 @@ abstract class LoadingBaseActivity : BaseActivity() {
         const val EXTRA_STARTED_TIME = "EXTRA_STARTED_TIME"
     }
 
-    protected lateinit var mStartedTime: String
+    lateinit var mStartedTime: String
 
     private lateinit var mProgressBar: ProgressBar
     private var mCount = 0

@@ -13,9 +13,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
-import top.gangshanghua.xiaobo.simpleretrofit.base.LoadingBaseActivity
 import top.gangshanghua.xiaobo.simpleretrofit.R
 import top.gangshanghua.xiaobo.simpleretrofit.base.BaseViewModel
+import top.gangshanghua.xiaobo.simpleretrofit.base.LoadingBaseActivity
+import top.gangshanghua.xiaobo.simpleretrofit.base.LoadingBaseViewModel
 import top.gangshanghua.xiaobo.simpleretrofit.base.viewModel
 
 class SimpleRetrofitActivity : LoadingBaseActivity() {
@@ -23,7 +24,7 @@ class SimpleRetrofitActivity : LoadingBaseActivity() {
     // =============================================================================>
     data class Item(val name: String?)
 
-    class MyViewModel(startedTime: String) : BaseViewModel(startedTime) {
+    class MyViewModel : LoadingBaseViewModel() {
         // do not use one same LiveData for multiple requests.
         // for only the last result will be send.
         val mTestData = MutableLiveData<List<Item>?>()
@@ -62,7 +63,7 @@ class SimpleRetrofitActivity : LoadingBaseActivity() {
     // <=============================================================================
 
     private val mViewModel: MyViewModel by viewModel {
-        MyViewModel(mStartedTime)
+        MyViewModel()
     }
     private lateinit var mAdapter: MyAdapter
     private var mShowLoading = false
