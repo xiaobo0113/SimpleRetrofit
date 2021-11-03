@@ -15,7 +15,8 @@ import java.util.concurrent.ConcurrentHashMap
 class MainApplication : Application() {
 
     companion object {
-        private lateinit var sAppContext: Context
+        lateinit var sAppContext: Context
+            private set
     }
 
     private val mCountMap = ConcurrentHashMap<String, Int>()
