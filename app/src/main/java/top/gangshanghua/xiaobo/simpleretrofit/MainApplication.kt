@@ -55,13 +55,13 @@ class MainApplication : Application() {
         registerActivityLifecycleCallbacks(object : EmptyActivityLifecycleCallbacks() {
             override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
                 if (activity is LoadingBaseActivity) {
-                    mActivityMap[activity.mStartedTime] = activity
+                    mActivityMap[activity.mUUID] = activity
                 }
             }
 
             override fun onActivityDestroyed(activity: Activity) {
                 if (activity is LoadingBaseActivity) {
-                    mActivityMap.remove(activity.mStartedTime)
+                    mActivityMap.remove(activity.mUUID)
                 }
             }
         })

@@ -33,7 +33,7 @@ class SimpleRetrofitActivity : LoadingBaseActivity() {
         }
 
         fun goodLoading() {
-            SimpleApi.mApiService.good(mStartedTime).enqueue(SimpleCallback(mTestData))
+            SimpleApi.mApiService.good(mUUID).enqueue(SimpleCallback(mTestData))
         }
 
         fun notFound() {
@@ -41,7 +41,7 @@ class SimpleRetrofitActivity : LoadingBaseActivity() {
         }
 
         fun notFoundLoading() {
-            SimpleApi.mApiService.notFound(mStartedTime).enqueue(SimpleCallback(mTestData))
+            SimpleApi.mApiService.notFound(mUUID).enqueue(SimpleCallback(mTestData))
         }
 
         fun timeout() {
@@ -49,7 +49,7 @@ class SimpleRetrofitActivity : LoadingBaseActivity() {
         }
 
         fun timeoutLoading() {
-            SimpleApi.mApiService.timeout(mStartedTime).enqueue(SimpleCallback(mTestData))
+            SimpleApi.mApiService.timeout(mUUID).enqueue(SimpleCallback(mTestData))
         }
     }
 

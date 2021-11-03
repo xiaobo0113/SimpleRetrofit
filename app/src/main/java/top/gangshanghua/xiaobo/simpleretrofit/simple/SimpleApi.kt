@@ -9,7 +9,6 @@ import okhttp3.ConnectionPool
 import okhttp3.EventListener
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import top.gangshanghua.xiaobo.simpleretrofit.http.GsonConverterFactoryWithGlobalCheck
 import top.gangshanghua.xiaobo.simpleretrofit.http.HttpLogInterceptor
 import java.io.IOException
@@ -17,7 +16,7 @@ import java.util.concurrent.TimeUnit
 
 object SimpleApi {
 
-    const val HEADER_LOADING = "loading"
+    const val HEADER_UUID = "loading"
 
     lateinit var mApiService: SimpleApiService
     private val mHandler = Handler(Looper.getMainLooper())
@@ -39,7 +38,7 @@ object SimpleApi {
                 override fun callStart(call: Call) {
                     super.callStart(call)
                     // can not use postValue, for maybe only the last value will be sent
-                    call.request().header(HEADER_LOADING)?.let {
+                    call.request().header(HEADER_UUID)?.let {
                         mHandler.post {
                             mLoadingLiveData.value = Triple(true, it, call)
                         }
@@ -48,7 +47,7 @@ object SimpleApi {
 
                 override fun callEnd(call: Call) {
                     super.callEnd(call)
-                    call.request().header(HEADER_LOADING)?.let {
+                    call.request().header(HEADER_UUID)?.let {
                         mHandler.post {
                             mLoadingLiveData.value = Triple(false, it, call)
                         }
@@ -57,7 +56,7 @@ object SimpleApi {
 
                 override fun callFailed(call: Call, ioe: IOException) {
                     super.callFailed(call, ioe)
-                    call.request().header(HEADER_LOADING)?.let {
+                    call.request().header(HEADER_UUID)?.let {
                         mHandler.post {
                             mLoadingLiveData.value = Triple(false, it, call)
                         }

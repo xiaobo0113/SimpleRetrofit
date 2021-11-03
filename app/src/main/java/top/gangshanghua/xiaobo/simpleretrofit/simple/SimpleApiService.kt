@@ -8,15 +8,15 @@ import top.gangshanghua.xiaobo.simpleretrofit.http.Result
 interface SimpleApiService {
 
     @GET("good")
-    fun good(@Header(SimpleApi.HEADER_LOADING) targetActivityStartedTime: String = ""):
+    fun good(@Header(SimpleApi.HEADER_UUID) targetActivityUUID: String = ""):
             Call<Result<List<SimpleRetrofitActivity.Item>?>>
 
     @GET("notFound")
-    fun notFound(@Header(SimpleApi.HEADER_LOADING) targetActivityStartedTime: String = ""):
+    fun notFound(@Header(SimpleApi.HEADER_UUID) targetActivityUUID: String = ""):
             Call<Result<List<SimpleRetrofitActivity.Item>?>>
 
     @GET("timeout")
-    fun timeout(@Header(SimpleApi.HEADER_LOADING) targetActivityStartedTime: String = ""):
+    fun timeout(@Header(SimpleApi.HEADER_UUID) targetActivityUUID: String = ""):
             Call<Result<List<SimpleRetrofitActivity.Item>?>>
 
 }

@@ -11,7 +11,7 @@ class ParamViewModelFactory<VM : ViewModel>(
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return factory().apply {
             if (this is LoadingBaseViewModel && activity is LoadingBaseActivity) {
-                mStartedTime = activity.mStartedTime
+                mUUID = activity.mUUID
             }
         } as T
     }
@@ -24,5 +24,5 @@ inline fun <reified VM : ViewModel> BaseActivity.viewModel(
 open class BaseViewModel : ViewModel()
 
 open class LoadingBaseViewModel : BaseViewModel() {
-    lateinit var mStartedTime: String
+    lateinit var mUUID: String
 }

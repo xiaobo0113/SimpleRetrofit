@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.fragment.app.DialogFragment
 import com.blankj.utilcode.util.LogUtils
 import top.gangshanghua.xiaobo.simpleretrofit.simple.SimpleLoadingDialog
+import java.util.*
 
 abstract class LoadingBaseActivity : BaseActivity() {
 
@@ -20,23 +21,22 @@ abstract class LoadingBaseActivity : BaseActivity() {
         private const val TAG_LOADING_DIALOG_FRAGMENT = "TAG_LOADING_DIALOG_FRAGMENT"
     }
 
-    lateinit var mStartedTime: String
+    lateinit var mUUID: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        mStartedTime = if (null == savedInstanceState) {
-            // TODO maybe use uuid
-            "${System.currentTimeMillis()}"
+        mUUID = if (null == savedInstanceState) {
+            UUID.randomUUID().toString()
         } else {
             savedInstanceState.getString(KEY_STARTED_TIME, "")
         }
-        LogUtils.d("mStartedTime: $mStartedTime")
+        LogUtils.d("mUUID: $mUUID")
 
         super.onCreate(savedInstanceState)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putString(KEY_STARTED_TIME, mStartedTime)
+        outState.putString(KEY_STARTED_TIME, mUUID)
     }
 
     fun showLoading() {
