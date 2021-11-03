@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit
 
 object SimpleApi {
 
-    const val HEADER_UUID = "loading"
+    const val HEADER_UUID = "HEADER_UUID"
 
     lateinit var mApiService: SimpleApiService
     private val mHandler = Handler(Looper.getMainLooper())
