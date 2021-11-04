@@ -9,3 +9,5 @@ dependencyResolutionManagement {
 }
 rootProject.name = "SimpleRetrofit"
 include ':app'
+include ':lib-processor'
+include ':lib-annotation'

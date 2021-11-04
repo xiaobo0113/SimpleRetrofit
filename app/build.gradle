@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -46,6 +47,9 @@ dependencies {
 
     implementation 'com.blankj:utilcodex:1.30.5'
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.2'
+
+    kapt project(':lib-processor')
+    implementation project(':lib-annotation')
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'

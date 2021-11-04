@@ -14,7 +14,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.io.IOException
 import java.lang.reflect.Type
 
-class GsonConverterFactoryWithGlobalCheck : Converter.Factory() {
+class GsonConverterFactoryWithGlobalCheck private constructor() : Converter.Factory() {
 
     companion object {
         fun create() = GsonConverterFactoryWithGlobalCheck()
