@@ -1,11 +1,10 @@
-package top.gangshanghua.xiaobo.simpleretrofit.simple
+package top.gangshanghua.xiaobo.lib_simple.http
 
 import androidx.lifecycle.MutableLiveData
 import com.blankj.utilcode.util.ToastUtils
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import top.gangshanghua.xiaobo.simpleretrofit.http.Result
 
 class IgnoreResponseSimpleCallback<T> : SimpleCallback<T>(MutableLiveData<T?>())
 
@@ -30,7 +29,7 @@ open class SimpleCallback<T>(private val mLiveData: MutableLiveData<T?>) : Callb
     override fun onFailure(call: Call<Result<T?>>, t: Throwable) {
         mLiveData.value = null
         // already use global exception tips, no use here any more
-        // ToastUtils.showShort(t.message)
+        ToastUtils.showShort(t.message)
     }
 
 }

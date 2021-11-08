@@ -11,7 +11,6 @@ import android.widget.LinearLayout
 import android.widget.ScrollView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.postDelayed
-import top.gangshanghua.xiaobo.simpleretrofit.simple.SimpleRetrofitActivity
 import kotlin.reflect.KClass
 
 class MainActivity : AppCompatActivity() {

@@ -1,4 +1,4 @@
-package top.gangshanghua.xiaobo.simpleretrofit.simple
+package top.gangshanghua.xiaobo.simpleretrofit
 
 import android.content.Intent
 import android.os.Bundle
@@ -13,17 +13,18 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
-import top.gangshanghua.xiaobo.simpleretrofit.R
-import top.gangshanghua.xiaobo.simpleretrofit.base.LoadingBaseActivity
-import top.gangshanghua.xiaobo.simpleretrofit.base.LoadingBaseViewModel
-import top.gangshanghua.xiaobo.simpleretrofit.base.viewModel
+import top.gangshanghua.xiaobo.lib_simple.http.SimpleCallback
+import top.gangshanghua.xiaobo.lib_simple.loading.viewModel
+import top.gangshanghua.xiaobo.simpleretrofit.base.BaseActivity
+import top.gangshanghua.xiaobo.simpleretrofit.base.BaseViewModel
+import top.gangshanghua.xiaobo.simpleretrofit.http.SimpleApi
 
-class SimpleRetrofitActivity : LoadingBaseActivity() {
+class SimpleRetrofitActivity : BaseActivity() {
 
     // =============================================================================>
     data class Item(val name: String?)
 
-    class MyViewModel : LoadingBaseViewModel() {
+    class MyViewModel : BaseViewModel() {
         // do not use one same LiveData for multiple requests.
         // for only the last result will be send.
         val mTestData = MutableLiveData<List<Item>?>()

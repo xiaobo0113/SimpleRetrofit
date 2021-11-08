@@ -1,4 +1,4 @@
-package top.gangshanghua.xiaobo.simpleretrofit.simple
+package top.gangshanghua.xiaobo.simpleretrofit
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,13 +7,15 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.DialogFragment
 import com.blankj.utilcode.util.ToastUtils
-import top.gangshanghua.xiaobo.simpleretrofit.base.LoadingBaseActivity
+import top.gangshanghua.xiaobo.lib_simple.http.IgnoreResponseSimpleCallback
+import top.gangshanghua.xiaobo.simpleretrofit.base.BaseActivity
+import top.gangshanghua.xiaobo.simpleretrofit.http.SimpleApi
 
-class SimpleRetrofitActivity2 : LoadingBaseActivity() {
+class SimpleRetrofitActivity2 : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        SimpleApi.mApiService.good(mUUID).enqueue(IgnoreResponseSimpleCallback())
+        SimpleApi.mApiService.good(getUUID()).enqueue(IgnoreResponseSimpleCallback())
 
         if (null == savedInstanceState) {
             MyDialog().show(supportFragmentManager, "MyDialog")

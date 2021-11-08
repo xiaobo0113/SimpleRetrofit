@@ -1,4 +1,4 @@
-package top.gangshanghua.xiaobo.simpleretrofit.base
+package top.gangshanghua.xiaobo.lib_simple.helper
 
 import android.app.Activity
 import android.app.Application

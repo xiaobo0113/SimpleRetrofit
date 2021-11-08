@@ -1,6 +1,6 @@
 package top.gangshanghua.xiaobo.simpleretrofit.base
 
-import androidx.appcompat.app.AppCompatActivity
+import top.gangshanghua.xiaobo.lib_simple.loading.LoadingActivity
 
-abstract class BaseActivity : AppCompatActivity() {
+abstract class BaseActivity : LoadingActivity() {
 }

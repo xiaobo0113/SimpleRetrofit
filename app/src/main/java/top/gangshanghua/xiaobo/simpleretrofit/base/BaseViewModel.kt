@@ -1,28 +1,5 @@
 package top.gangshanghua.xiaobo.simpleretrofit.base
 
-import androidx.activity.viewModels
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import top.gangshanghua.xiaobo.lib_simple.loading.LoadingViewModel
 
-class ParamViewModelFactory<VM : ViewModel>(
-    private val factory: () -> VM,
-    private val activity: BaseActivity
-) : ViewModelProvider.Factory {
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return factory().apply {
-            if (this is LoadingBaseViewModel && activity is LoadingBaseActivity) {
-                mUUID = activity.mUUID
-            }
-        } as T
-    }
-}
-
-inline fun <reified VM : ViewModel> BaseActivity.viewModel(
-    noinline factory: () -> VM,
-): Lazy<VM> = viewModels { ParamViewModelFactory(factory, this) }
-
-open class BaseViewModel : ViewModel()
-
-open class LoadingBaseViewModel : BaseViewModel() {
-    lateinit var mUUID: String
-}
+open class BaseViewModel : LoadingViewModel()

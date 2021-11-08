@@ -1,9 +1,9 @@
-package top.gangshanghua.xiaobo.simpleretrofit.simple
+package top.gangshanghua.xiaobo.simpleretrofit.http
 
 import okhttp3.*
 import java.net.SocketTimeoutException
 
-class SimpleInterceptor : Interceptor {
+class MockInterceptor : Interceptor {
 
     companion object {
         private const val GOOD_JSON = """

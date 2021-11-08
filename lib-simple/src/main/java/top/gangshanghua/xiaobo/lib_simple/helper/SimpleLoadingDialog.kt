@@ -1,4 +1,4 @@
-package top.gangshanghua.xiaobo.simpleretrofit.simple
+package top.gangshanghua.xiaobo.lib_simple.helper
 
 import android.os.Bundle
 import android.view.LayoutInflater
