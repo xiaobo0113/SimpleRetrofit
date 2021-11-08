@@ -7,8 +7,6 @@ import top.gangshanghua.xiaobo.lib_simple.helper.SimpleLoadingDialog
 interface Loading {
 
     companion object {
-        private const val KEY_STARTED_TIME = "KEY_STARTED_TIME"
-
         // we must use a tag to find the specified fragment.
         // you can not hold an instance of DialogFragment to call dialog.show()/dialog.hide().
         // for if you rotate the screen, then activity will be re-created, then you will
