@@ -1,5 +1,5 @@
 package top.gangshanghua.xiaobo.simpleretrofit.base
 
-import top.gangshanghua.xiaobo.lib_simple.loading.LoadingViewModel
+import androidx.lifecycle.ViewModel
 
-open class BaseViewModel : LoadingViewModel()
+open class BaseViewModel : ViewModel()

@@ -4,8 +4,6 @@ import android.app.Activity
 import android.app.Application
 import android.content.Context
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import okhttp3.Call
 import okhttp3.EventListener
 import okhttp3.OkHttpClient
@@ -13,27 +11,25 @@ import top.gangshanghua.xiaobo.lib_simple.helper.EmptyActivityLifecycleCallbacks
 import top.gangshanghua.xiaobo.lib_simple.loading.Loading
 import java.io.IOException
 import java.util.concurrent.ConcurrentHashMap
+import java.util.concurrent.CopyOnWriteArrayList
 
 object SimpleRetrofit {
 
-    const val HEADER_UUID = "HEADER_UUID"
+    private val mCallMap = ConcurrentHashMap<Call, Loading>()
+    private val mActivityList = CopyOnWriteArrayList<Loading>()
 
-    private val mHandler = Handler(Looper.getMainLooper())
-    private val mCountMap = ConcurrentHashMap<String, Int>()
-    private val mActivityMap = ConcurrentHashMap<String, Loading>()
-
-    fun init(context: Context, builder: OkHttpClient.Builder): OkHttpClient {
+    fun init(context: Context, builder: OkHttpClient.Builder): OkHttpClient.Builder {
         (context.applicationContext as Application).registerActivityLifecycleCallbacks(
             object : EmptyActivityLifecycleCallbacks() {
                 override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
                     if (activity is Loading) {
-                        mActivityMap[activity.getUUID()] = activity
+                        mActivityList.add(activity)
                     }
                 }
 
                 override fun onActivityDestroyed(activity: Activity) {
                     if (activity is Loading) {
-                        mActivityMap.remove(activity.getUUID())
+                        mActivityList.remove(activity)
                     }
                 }
             })
@@ -41,54 +37,30 @@ object SimpleRetrofit {
         builder.eventListener(object : EventListener() {
             override fun callStart(call: Call) {
                 super.callStart(call)
-                // can not use postValue, for maybe only the last value will be sent
-                call.request().header(HEADER_UUID)?.let {
-                    mHandler.post {
-                        handleLoading(true, it)
-                    }
+                mActivityList.lastOrNull()?.let {
+                    mCallMap[call] = it
                 }
+                handleLoading(true, call)
             }
 
             override fun callEnd(call: Call) {
                 super.callEnd(call)
-                call.request().header(HEADER_UUID)?.let {
-                    mHandler.post {
-                        handleLoading(false, it)
-                    }
-                }
+                handleLoading(false, call)
+                mCallMap.remove(call)
             }
 
             override fun callFailed(call: Call, ioe: IOException) {
                 super.callFailed(call, ioe)
-                call.request().header(HEADER_UUID)?.let {
-                    mHandler.post {
-                        handleLoading(false, it)
-                    }
-                }
+                handleLoading(false, call)
+                mCallMap.remove(call)
             }
         })
 
-        return builder.build()
+        return builder
     }
 
-    private fun handleLoading(show: Boolean, uuid: String) {
-        if (mCountMap[uuid] == null) {
-            mCountMap[uuid] = 0
-        }
-
-        if (show) {
-            if (mCountMap[uuid] == 0) {
-                mActivityMap[uuid]?.showLoading()
-            }
-            mCountMap[uuid] = mCountMap[uuid]!! + 1
-
-        } else {
-            mCountMap[uuid] = mCountMap[uuid]!! - 1
-            if (mCountMap[uuid] == 0) {
-                mCountMap.remove(uuid)
-                mActivityMap[uuid]?.hideLoading()
-            }
-        }
+    private fun handleLoading(show: Boolean, call: Call) {
+        mCallMap[call]?.handleLoading(show)
     }
 
 }

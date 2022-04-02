@@ -15,7 +15,7 @@ class SimpleRetrofitActivity2 : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        SimpleApi.mApiService.good(getUUID()).enqueue(IgnoreResponseSimpleCallback())
+        SimpleApi.mLoadingApiService.good().enqueue(IgnoreResponseSimpleCallback())
 
         if (null == savedInstanceState) {
             MyDialog().show(supportFragmentManager, "MyDialog")

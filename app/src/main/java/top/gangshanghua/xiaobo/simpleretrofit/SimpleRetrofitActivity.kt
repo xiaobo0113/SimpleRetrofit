@@ -8,13 +8,13 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.TextView
+import androidx.activity.viewModels
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import top.gangshanghua.xiaobo.lib_simple.http.SimpleCallback
-import top.gangshanghua.xiaobo.lib_simple.loading.viewModel
 import top.gangshanghua.xiaobo.simpleretrofit.base.BaseActivity
 import top.gangshanghua.xiaobo.simpleretrofit.base.BaseViewModel
 import top.gangshanghua.xiaobo.simpleretrofit.http.SimpleApi
@@ -34,7 +34,7 @@ class SimpleRetrofitActivity : BaseActivity() {
         }
 
         fun goodLoading() {
-            SimpleApi.mApiService.good(mUUID).enqueue(SimpleCallback(mTestData))
+            SimpleApi.mLoadingApiService.good().enqueue(SimpleCallback(mTestData))
         }
 
         fun notFound() {
@@ -42,7 +42,7 @@ class SimpleRetrofitActivity : BaseActivity() {
         }
 
         fun notFoundLoading() {
-            SimpleApi.mApiService.notFound(mUUID).enqueue(SimpleCallback(mTestData))
+            SimpleApi.mLoadingApiService.notFound().enqueue(SimpleCallback(mTestData))
         }
 
         fun timeout() {
@@ -50,7 +50,7 @@ class SimpleRetrofitActivity : BaseActivity() {
         }
 
         fun timeoutLoading() {
-            SimpleApi.mApiService.timeout(mUUID).enqueue(SimpleCallback(mTestData))
+            SimpleApi.mLoadingApiService.timeout().enqueue(SimpleCallback(mTestData))
         }
     }
 
@@ -62,9 +62,7 @@ class SimpleRetrofitActivity : BaseActivity() {
     }
     // <=============================================================================
 
-    private val mViewModel: MyViewModel by viewModel {
-        MyViewModel()
-    }
+    private val mViewModel: MyViewModel by viewModels()
     private lateinit var mAdapter: MyAdapter
     private var mShowLoading = false
 

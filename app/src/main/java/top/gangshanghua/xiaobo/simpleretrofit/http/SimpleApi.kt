@@ -9,10 +9,11 @@ import java.util.concurrent.TimeUnit
 
 object SimpleApi {
 
-    lateinit var mApiService: SimpleApiService
+    lateinit var mApiService: ApiService
+    lateinit var mLoadingApiService: LoadingApiService
 
     fun init(context: Context) {
-        val builder = OkHttpClient.Builder()
+        val client = OkHttpClient.Builder()
             .readTimeout(5, TimeUnit.SECONDS)
             .writeTimeout(5, TimeUnit.SECONDS)
             .connectTimeout(5, TimeUnit.SECONDS)
@@ -20,14 +21,19 @@ object SimpleApi {
             .connectionPool(ConnectionPool())
             .addInterceptor(HttpLogInterceptor(true))
             .addInterceptor(MockInterceptor())
+            .build()
 
         val retrofit = Retrofit.Builder()
-            .client(SimpleRetrofit.init(context, builder))
+            .client(client)
             .baseUrl("https://www.baidu.com/")
             .addConverterFactory(GsonConverterFactoryWithGlobalCheck.create())
             .build()
 
-        mApiService = retrofit.create(SimpleApiService::class.java)
+        mApiService = retrofit.create(ApiService::class.java)
+        mLoadingApiService = retrofit.newBuilder()
+            .client(SimpleRetrofit.init(context, client.newBuilder()).build())
+            .build()
+            .create(LoadingApiService::class.java)
     }
 
 }

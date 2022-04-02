@@ -17,14 +17,21 @@ interface Loading {
         private const val TAG_LOADING_DIALOG_FRAGMENT = "TAG_LOADING_DIALOG_FRAGMENT"
     }
 
-    /**
-     * you are responsible to save and restore the uuid for activity configuration change.
-     * that is to say, if a configuration change leads to the re-construction of activity,
-     * you must guarantee the uuid is the same before the re-construction.
-     */
-    fun getUUID(): String
+    var mLoading: Int
 
-    fun showLoading() {
+    fun handleLoading(show: Boolean) {
+        if (show) {
+            showLoading()
+        } else {
+            hideLoading()
+        }
+    }
+
+    private fun showLoading() {
+        if (mLoading++ > 0) {
+            return
+        }
+
         if (this is AppCompatActivity) {
             val fragment = supportFragmentManager.findFragmentByTag(TAG_LOADING_DIALOG_FRAGMENT)
             if (fragment == null) {
@@ -34,7 +41,11 @@ interface Loading {
         }
     }
 
-    fun hideLoading() {
+    private fun hideLoading() {
+        if (mLoading-- > 1) {
+            return
+        }
+
         if (this is AppCompatActivity) {
             supportFragmentManager.findFragmentByTag(TAG_LOADING_DIALOG_FRAGMENT)?.apply {
                 (this as DialogFragment).dismiss()
