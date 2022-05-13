@@ -1,5 +1,6 @@
 package top.gangshanghua.xiaobo.lib_simple.loading
 
+import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
 import top.gangshanghua.xiaobo.lib_simple.helper.SimpleLoadingDialog
@@ -18,12 +19,17 @@ interface Loading {
     }
 
     var mLoading: Int
+    val mHandler: Handler
 
     fun handleLoading(show: Boolean) {
         if (show) {
-            showLoading()
+            mHandler.post {
+                showLoading()
+            }
         } else {
-            hideLoading()
+            mHandler.post {
+                hideLoading()
+            }
         }
     }
 
