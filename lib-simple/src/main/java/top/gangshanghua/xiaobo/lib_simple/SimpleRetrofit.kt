@@ -7,8 +7,8 @@ import android.os.Bundle
 import okhttp3.Call
 import okhttp3.EventListener
 import okhttp3.OkHttpClient
+import top.gangshanghua.lib_loading.Loading
 import top.gangshanghua.xiaobo.lib_simple.helper.EmptyActivityLifecycleCallbacks
-import top.gangshanghua.xiaobo.lib_simple.loading.Loading
 import java.io.IOException
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.CopyOnWriteArrayList

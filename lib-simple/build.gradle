@@ -39,4 +39,5 @@ dependencies {
 
     api 'com.squareup.retrofit2:retrofit:2.9.0'
     api 'com.blankj:utilcodex:1.30.5'
+    api "top.gangshanghua.xiaobo:simple-loading:1.0.0"
 }
