@@ -5,7 +5,7 @@ dependencyResolutionManagement {
         mavenCentral()
         maven { url "https://jitpack.io" }
         jcenter() // Warning: this repository is going to shut down soon
-        maven { url 'E://xiaobo/maven/' }
+        maven { url 'D://xiaobo/maven/' }
     }
 }
 rootProject.name = "SimpleRetrofit"
